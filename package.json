@@ -1,0 +1,27 @@
+{
+  "name": "dbbb",
+  "version": "1.0.0",
+  "description": "Discord Bot basic build",
+  "main": "index.js",
+  "scripts": {
+    "start": "node dist/app.js",
+    "build": "tsc",
+    "server": "tsc && npm run start"
+  },
+  "keywords": [],
+  "author": "Lucio Busatto",
+  "license": "ISC",
+  "dependencies": {
+    "@types/mongoose": "^5.11.97",
+    "discord.js": "^14.7.1",
+    "dotenv": "^16.0.3",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.4",
+    "mongoose": "^7.0.2",
+    "prettier": "^2.8.7"
+  },
+  "devDependencies": {
+    "@types/node": "^18.14.6",
+    "eslint": "^8.35.0"
+  }
+}
