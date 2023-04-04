@@ -1,7 +1,11 @@
 export type Player = {
     name: string;
-    team: string;
-    discordId: number;
+    elo: number;
+    team?: string;
+    games?: number;
+    wins?: number;
+    loses?: number;
+    discordId: string;
     role: string;
     ready: boolean;
 }

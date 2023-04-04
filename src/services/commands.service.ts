@@ -14,7 +14,7 @@ export const getCommand = (commandName: string): Command => {
 
 export async function registerCommands(token: any, clientId) {
     const commandsNameAndDescription = commands.map((command) =>
-        pick(command, ["name", "description"])
+        pick(command, ["name", "description", "options"])
     );
 
     const rest = new REST({ version: "10" }).setToken(token);

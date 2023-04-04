@@ -1,6 +1,7 @@
 import {CommandDefinition} from "../models/Command";
-import {lobbiesCache, playersMock} from "../services/cache";
+import {lobbiesCache} from "../services/cache";
 import {renderLobby} from "../helpers/discord.helpers";
+import {playersMock} from "../mock";
 
 const players = playersMock;
 

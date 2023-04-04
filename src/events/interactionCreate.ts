@@ -1,4 +1,4 @@
-import {getCommand} from "../services/commands-service";
+import {getCommand} from "../services/commands.service";
 
 const { Events } = require('discord.js');
 

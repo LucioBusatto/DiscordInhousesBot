@@ -1,7 +1,8 @@
 import mongoose from 'mongoose';
+import {Player} from "../models/Player";
 const { Schema } = mongoose;
 
-const playerSchema = new Schema({
+const playerSchema = new Schema<Player>({
     name:String,
     elo: Number,
     games: Number,
@@ -10,4 +11,4 @@ const playerSchema = new Schema({
     discordId: { type: String, unique : true},
 });
 
-export const Player = mongoose.model('Player', playerSchema);
+export const PlayerModel = mongoose.model('Player', playerSchema);

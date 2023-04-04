@@ -1,19 +1,20 @@
 import {config} from "dotenv";
 import {Client, GatewayIntentBits, Partials} from "discord.js";
-import {events} from "./events";
-import {registerCommands} from "./services/commands-service";
+import {nonUniqueEvents, uniqueEvents} from "./events";
+import {registerCommands} from "./services/commands.service";
 import * as mongoose from "mongoose";
 import {Queue} from "./models/Queue";
 
 export let env;
 export const queue = new Queue();
+export let client;
 
 try {
     config();
     env = process.env;
     mongoose.connect(env.MONGODB).then();
 
-    const client = new Client({
+    client = new Client({
         intents: [
             GatewayIntentBits.Guilds,
             GatewayIntentBits.GuildMembers,
@@ -26,13 +27,8 @@ try {
 
     registerCommands(env.TOKEN, env.CLIENT_ID)
 
-    for (const event of events) {
-        if (event.once) {
-            client.once(event.name, (...args) => event.execute(...args));
-        } else {
-            client.on(event.name, (...args) => event.execute(...args));
-        }
-    }
+    uniqueEvents.forEach(event => client.once(event.name, (...args) => event.execute(...args)));
+    nonUniqueEvents.forEach(event => client.on(event.name, (...args) => event.execute(...args)));
 
     client.login(env.TOKEN);
 

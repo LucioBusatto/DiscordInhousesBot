@@ -1,6 +1,6 @@
 import { CommandDefinition } from "../models/Command";
 import {EmbedBuilder} from "discord.js";
-import {mongooseService} from "../services/mongoose-service";
+import {mongooseService} from "../services/mongoose.service";
 
 const profile: CommandDefinition = {
     name: "profile",

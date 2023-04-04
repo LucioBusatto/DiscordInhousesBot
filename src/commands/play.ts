@@ -1,23 +1,52 @@
-import { CommandDefinition } from "../models/Command";
-import {mongooseService} from "../services/mongoose-service";
+import {CommandDefinition} from "../models/Command";
+import {mongooseService} from "../services/mongoose.service";
 import {queue} from "../app";
+import {ApplicationCommandOptionType} from "discord.js";
 
 const play: CommandDefinition = {
     name: "play",
     alias: [],
     description: "This commands joins player into queue",
+    options: [
+        {
+            name: 'role',
+            description: 'Selected role for Queue',
+            type: ApplicationCommandOptionType.String,
+            required: true,
+            choices: [
+                {
+                    name: 'Top',
+                    value: 'TOP'
+                },
+                {
+                    name: 'Jungle',
+                    value: 'JG'
+                },
+                {
+                    name: 'Mid',
+                    value: 'MID'
+                },
+                {
+                    name: 'Bot',
+                    value: 'BOT'
+                },
+                {
+                    name: 'Supp',
+                    value: 'SUPP'
+                }
+            ]
+        }
+    ],
     action: async (interaction) => {
         const player = await mongooseService.findPlayer(interaction.user);
-        if(player){
-            const added = queue.addPlayer(player);
-            if (added){
-                await interaction.reply(`Player ${interaction.user.username} added to Queue`)
-            }else {
-                await interaction.reply(`Player ${interaction.user.username} is already in Queue`)
-            }
-        }else {
-            await interaction.reply("Players have to register before play")
+        let message = "Players have to register before play";
+
+        if (player) {
+            const added = queue.addPlayer(player, interaction.options.get('role').value);
+            message = added ? `Player ${interaction.user.username} added to Queue` : `Player ${interaction.user.username} is already in Queue`
         }
+
+        return await interaction.reply(message)
     },
 };
 

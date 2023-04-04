@@ -1,5 +1,5 @@
 import { CommandDefinition } from "../models/Command";
-import {mongooseService} from "../services/mongoose-service";
+import {mongooseService} from "../services/mongoose.service";
 
 const register: CommandDefinition = {
     name: "register",
