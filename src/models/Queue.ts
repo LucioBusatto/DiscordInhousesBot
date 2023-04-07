@@ -1,6 +1,7 @@
 import {PLAYERS_PER_ROLE, ROLES} from "../const";
 import {Match} from "./Match";
 import {playersMock} from "../mock";
+import {filteredArray} from "../helpers/helpers";
 
 export class Queue {
     players: any;
@@ -14,14 +15,15 @@ export class Queue {
      * @return bool value whether the player was added or not
      * */
     addPlayer(player: any, role) {
-        const playerInQueue = this.players.some(p => p.discordId === player.discordId)
+        const playerInQueue = this.players.some(p => p.id_discord === player.id_discord)
         if (playerInQueue) {
             return false;
         }
 
         const playerForQueue = {
+            id: player.id,
             name: player.name,
-            discordId: player.discordId,
+            id_discord: player.id_discord,
             elo: player.elo,
             role: role,
             ready: false
@@ -37,9 +39,9 @@ export class Queue {
     }
 
     removePlayer(player: any) {
-        const playerInQueue = this.players.some(p => p.discordId === player.discordId)
+        const playerInQueue = this.players.some(p => p.id_discord === player.id_discord)
         if (playerInQueue) {
-            this.players = this.players.filter(p => p.discordId !== player.discordId);
+            this.players = this.players.filter(p => p.id_discord !== player.id_discord);
             return true
         }
 
@@ -47,14 +49,16 @@ export class Queue {
     }
 
     canCreateMatch(): boolean {
+        let canCreate = true;
         ROLES.forEach((role) => {
-            const playersWithRole = this.players.filter(player => this.players[player] == role);
+            const playersWithRole = this.players.filter(player => player.role == role);
             if (playersWithRole.length < PLAYERS_PER_ROLE) {
-                return false;
+                canCreate = false;
             }
         });
 
-        return true;
+
+        return canCreate;
     }
 
     createMatchPlayersArray(): any[] {
@@ -68,5 +72,9 @@ export class Queue {
 
     private mockQueue() {
         this.players = playersMock;
+    }
+
+    deletePlayers(players){
+        this.players = filteredArray(this.players, players);
     }
 }

@@ -5,3 +5,11 @@
     }
     return array;
 }
+
+ export const filteredArray =  (firstArray, secondArray) => {
+     return firstArray.filter(obj1 => {
+         return !secondArray.some(obj2 => {
+             return obj1.id_discord === obj2.id_discord;
+         });
+     });
+ }

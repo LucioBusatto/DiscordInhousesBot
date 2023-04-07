@@ -5,7 +5,8 @@ const ICON_BOT = '<:bot:1089815089747603516>';
 const ICON_SUPP = '<:supp:1089815092977225789>';
 export const ICON_URL = 'https://yt3.googleusercontent.com/l4rZbrf9D3i11dZMgMFpCtHn2ATA3CBt4zJKI4dlXTOfsywdpr4k4fHCHKV9-ucf8hyQ2bXplg=s900-c-k-c0x00ffffff-no-rj'
 
-export const CHANNEL_ID_MATCHS = '1092504788266143764';
+export const CHANNEL_ID_LOBBIES = '1092504788266143764';
+export const CHANNEL_ID_MATCHS = '1093057636171259904';
 
 export const ICON_ROLES = {
     TOP: ICON_TOP,
@@ -24,3 +25,11 @@ export const ROLES = [
     'BOT',
     'SUPP'
 ]
+
+export enum ROLES_IDS {
+    TOP = 1,
+    JG = 2,
+    MID = 3,
+    BOT = 4,
+    SUPP = 5
+}

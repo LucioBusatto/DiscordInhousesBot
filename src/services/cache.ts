@@ -7,11 +7,13 @@ class Cache<TKey extends unknown, TValue extends unknown> {
   private cache = new Map<TKey, CacheEntry<TValue>>();
   /** Time to live in minutes */
   private ttl: number;
-  private deleteCallback: CacheDeleteCallback<TKey, TValue>;
+  private deleteCallback?: CacheDeleteCallback<TKey, TValue>;
 
-  constructor(ttl: number, onDeleteCallback: CacheDeleteCallback<TKey, TValue>) {
+  constructor(ttl: number, onDeleteCallback?: CacheDeleteCallback<TKey, TValue>) {
     this.ttl = ttl;
-    this.deleteCallback = onDeleteCallback;
+    if(onDeleteCallback){
+      this.deleteCallback = onDeleteCallback;
+    }
     this.clearEntries();
   }
 
@@ -38,7 +40,9 @@ class Cache<TKey extends unknown, TValue extends unknown> {
       const hasExpired = now.getTime() - entry.createdAt.getTime() > this.ttl * 60 * 1000;
       if (hasExpired) {
         this.cache.delete(key);
-        this.deleteCallback(key, entry.value);
+        if(this.deleteCallback){
+          this.deleteCallback(key, entry.value);
+        }
       }
     });
 
@@ -49,3 +53,5 @@ class Cache<TKey extends unknown, TValue extends unknown> {
 }
 
 export const lobbiesCache = new Cache<string, Player[]>(1, onLobbyExpired);
+export const matchCache = new Cache<string, Player[]>(1);
+

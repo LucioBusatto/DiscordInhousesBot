@@ -1,14 +1,14 @@
 import { CommandDefinition } from "../models/Command";
 import {EmbedBuilder} from "discord.js";
-import {mongooseService} from "../services/mongoose.service";
+import {databaseService} from "../services/database.service";
 
 const profile: CommandDefinition = {
     name: "profile",
-    alias: [],
+    alias: ["me"],
     description: "This commands brings a player profile",
     action: async (interaction) => {
 
-         const player = await mongooseService.findPlayer(interaction.user)
+         const player = await databaseService.findPlayer(interaction.user.id)
          if(player) {
              const exampleEmbed = new EmbedBuilder()
                  .setColor(0x0099FF)

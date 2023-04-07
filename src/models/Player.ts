@@ -5,7 +5,8 @@ export type Player = {
     games?: number;
     wins?: number;
     loses?: number;
-    discordId: string;
+    id?: string;
+    id_discord: string;
     role: string;
     ready: boolean;
 }

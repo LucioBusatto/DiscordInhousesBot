@@ -2,7 +2,6 @@ import {config} from "dotenv";
 import {Client, GatewayIntentBits, Partials} from "discord.js";
 import {nonUniqueEvents, uniqueEvents} from "./events";
 import {registerCommands} from "./services/commands.service";
-import * as mongoose from "mongoose";
 import {Queue} from "./models/Queue";
 
 export let env;
@@ -12,7 +11,6 @@ export let client;
 try {
     config();
     env = process.env;
-    mongoose.connect(env.MONGODB).then();
 
     client = new Client({
         intents: [
