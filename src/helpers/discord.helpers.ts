@@ -85,7 +85,8 @@ export const renderMatch = (players: Player[], id) => {
             {
                 name: "\u200B",
                 value: "\u200B",
-                inline: true},
+                inline: true
+            },
             {
                 name: '🟥',
                 value: `RED TEAM`,
