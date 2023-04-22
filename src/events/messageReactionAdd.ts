@@ -1,8 +1,6 @@
 import { lobbiesCache } from "../services/cache";
 import { renderLobby } from "../helpers/discord.helpers";
-import {discordService} from "../services/discord.service";
-import {databaseService} from "../services/database.service";
-
+import { discordService } from "../services/discord.service";
 const { Events } = require("discord.js");
 
 export const messageReactionAdd = {
@@ -15,13 +13,13 @@ export const messageReactionAdd = {
     const player = lobby.find((p) => p.id_discord == user.id);
 
     if (player) {
-      if(reaction._emoji.name === '✅'){
+      if (reaction._emoji.name === "✅") {
         player.ready = true;
-        const playersReady = lobby.filter(player => player.ready === true);
-        if(playersReady.length === 10){
+        const playersReady = lobby.filter((player) => player.ready === true);
+        if (playersReady.length === 10) {
           discordService.sendNewMatchMessage(lobby);
         }
-      }else if (reaction._emoji.name === '❌'){
+      } else if (reaction._emoji.name === "❌") {
         player.ready = false;
       }
     }

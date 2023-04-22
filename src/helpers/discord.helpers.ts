@@ -4,26 +4,26 @@ import {Player} from "../models/Player";
 
 export const renderLobby = (players: Player[]) => {
     const lobbyEmbed = new EmbedBuilder()
-        .setTitle(`New In-House Lobby`)
-        .setDescription(`React with "✅" to accept game or "❌" to decline`)
-        .setColor("#0099ff")
-        .addFields(
-            {
-                name: '🟦',
-                value: `BLUE TEAM`,
-                inline: true,
-            },
-            {name: "\u200B", value: "\u200B", inline: true},
-            {
-                name: '🟥',
-                value: `RED TEAM`,
-                inline: true,
-            }
-        )
-        .setFooter({
-            text: "The Game will start when all players are ready, otherwise it will be cancel after 5 minutes",
-            iconURL: ICON_URL,
-        });
+      .setTitle(`New In-House Lobby`)
+      .setDescription(`React with "✅" to accept game or "❌" to decline`)
+      .setColor("#0099ff")
+      .addFields(
+        {
+          name: "🟦",
+          value: `BLUE TEAM`,
+          inline: true,
+        },
+        { name: "\u200B", value: "\u200B", inline: true },
+        {
+          name: "🟥",
+          value: `RED TEAM`,
+          inline: true,
+        }
+      )
+      .setFooter({
+        text: "The Game will start when all players are ready, otherwise it will be cancel after 5 minutes",
+        iconURL: ICON_URL,
+      });
     ROLES.forEach((role) => {
         const roleIcon = ICON_ROLES[role];
         const [player, otherPlayer] = players.filter(p => p.role === role).sort();
